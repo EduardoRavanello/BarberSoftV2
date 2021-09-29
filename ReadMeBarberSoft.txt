@@ -44,3 +44,5 @@ DB_PORT=5432
 DB_DATABASE=barbersoft
 DB_USERNAME=postgres
 DB_PASSWORD=adminpro
+
+teste
