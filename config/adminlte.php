@@ -259,13 +259,6 @@ return [
             ],
             [
             
-                'text' => 'Produtos',
-                'url' => 'produto',
-                'icon' => 'fas fa-fw fa-users',
-
-            ],
-            [
-            
                 'text' => 'Serviços',
                 'url' => 'servico',
                 'icon' => 'fas fa-fw fa-users',
