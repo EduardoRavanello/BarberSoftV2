@@ -36,7 +36,7 @@ https://getcomposer.org/download/
 Após o download do composer, abrir o cmder e rodar o seguinte comando para validar a versão do seu composer:
 composer -v
 
-Baixar o banco de dados de sua preferencia;
+Baixar o banco de dados de sua preferencia, e cria o seu banco no SGBD;
 Altere o arquivo .env e ajuste com as informações do seu banco de dados. Ex:
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
@@ -45,4 +45,9 @@ DB_DATABASE=barbersoft
 DB_USERNAME=postgres
 DB_PASSWORD=adminpro
 
-teste
+
+Após criado o banco, realize as migrations utilizando o comando:
+php artisan migrate
+
+
+/* falta criar a querie com a carga inicial de dados */
