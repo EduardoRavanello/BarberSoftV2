@@ -26,7 +26,8 @@ class ClienteRequest extends FormRequest
         return [
             'nome'=>'required|min:5',
             'telefone'=>'required|min:9',
-            'endereco'=>'required'
+            'endereco'=>'required',
+            'email'=>'required',
         ];
     }
 }

@@ -28,6 +28,11 @@
         </div>
 
         <div class="form-group">
+            {!! Form::label('email', 'E-mail:') !!}
+            {!! Form::text('email', null, ['class'=>'form-control','required']) !!}
+        </div>
+
+        <div class="form-group">
             {!! Form::label('genero', 'Gênero:') !!}
             {!! Form::select('genero', array('Masc'=>'Maculino','Fem'=>'Feminino'), 'Masc', ['class'=>'form-control','required']) !!}
         </div>

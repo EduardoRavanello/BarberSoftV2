@@ -24,6 +24,7 @@
                         <th>Endereço</th>
                         <th>Genero</th>
                         <th>Telefone</th>
+                        <th>E-mail</th>
                         <th>Ações</th>
                 </thead>
                 <tbody>
@@ -33,6 +34,7 @@
                                 <td>{{ $cliente->endereco }}</td>
                                 <td>{{ $cliente->genero }}</td>
                                 <td>{{ $cliente->telefone }}</td>
+                                <td>{{ $cliente->email }}</td>
                                 <td>
                                         <a href="{{ route('cliente.edit', ['id'=>\Crypt::encrypt($cliente->id_cliente)]) }}" class="btn-sm btn-success">Editar</a>
                                         <a href="{{ route('cliente.destroy', ['id'=>$cliente->id_cliente]) }}" class="btn-sm btn-danger">Remover</a>
