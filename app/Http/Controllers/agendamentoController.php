@@ -29,6 +29,7 @@ class agendamentoController extends Controller
         $agendamento = Agendamento::create([
             'data'=> $request->get('data'),
             'hora'=> $request->get('hora'),
+            'status'=> $request->get('status'),
             'id_cliente'=> $request->get('id_cliente'),
             'id_executor'=> $request->get('id_executor'),
             'id_servico'=> $request->get('id_servico')

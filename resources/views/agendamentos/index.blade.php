@@ -24,6 +24,7 @@
                         <th>Data</th>
                         <th>Hora</th>
                         <th>Executor</th>
+                        <th>Status</th>
                         <th>Ações</th>
                 </thead>
                 <tbody>
@@ -34,6 +35,7 @@
                                 <td>{{ Carbon\Carbon::parse($agendamento->data)->format('d/m/y') }}</td>
                                 <td>{{ $agendamento->hora }}</td>
                                 <td>{{ $agendamento->executor->tipoExecutor }}</td>
+                                <td>{{ $agendamento->status }}</td>
                                 <td>
                                         <a href="{{ route('agendamento.edit', ['id'=>\Crypt::encrypt($agendamento->id_agendamento)]) }}" class="btn-sm btn-success">Editar</a>
                                         <a href="{{ route('agendamento.destroy', ['id'=>$agendamento->id_agendamento]) }}" class="btn-sm btn-danger">Remover</a>

@@ -17,6 +17,7 @@ class CreateAgendamentosTable extends Migration
             $table->bigIncrements('id_agendamento');
             $table->date('data');
             $table->time('hora');
+            $table->string('status', 50);
             $table->timestamps();
         });
     }

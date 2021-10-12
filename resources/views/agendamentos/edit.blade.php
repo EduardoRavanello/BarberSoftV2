@@ -38,6 +38,11 @@
         </div>
 
         <div class="form-group">
+            {!! Form::label('status', 'Status:') !!}
+            {!! Form::select('status', array('Criado'=>'Criado','Agendado'=>'Agendado','Finalizado'=>'Flinalizado','Cancelado'=>'Cancelado'), $agendamento->status, ['class'=>'form-control','required']) !!}
+        </div>
+
+        <div class="form-group">
             {!! Form::submit('Editar Agendamento', ['class'=>'btn btn-primary']) !!}
             {!! Form::reset('Limpar', ['class'=>'btn btn-default']) !!}
         </div>

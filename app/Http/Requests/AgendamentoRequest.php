@@ -26,6 +26,7 @@ class AgendamentoRequest extends FormRequest
         return [
             'data'=>'required',
             'hora'=>'required',
+            'status'=>'required',
             'id_servico'=>'required',
             'id_cliente'=>'required',
             'id_executor'=>'required'
