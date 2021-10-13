@@ -19,6 +19,10 @@ Route::get('/', function () {
 
 Route::group(['middleware'=>'auth'], function(){
 
+    //Route::get('/graficoServicoMeses', 'HomeController@graficoServicoMeses')->name('graficoServicoMeses');
+    Route::get('/graficoServicoMeses', [App\Http\Controllers\HomeController::class, 'graficoServicoMeses'])->name('graficoServicoMeses');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
     Route::group(['prefix'=>'cliente', 'where'=>['id'=>'[0-9]+']], function(){
     Route::any('',              ['as'=>'cliente',          'uses'=>'App\Http\Controllers\clienteController@index']);
     Route::get('create',        ['as'=>'cliente.create',   'uses'=>'App\Http\Controllers\clienteController@create']);
@@ -86,7 +90,7 @@ Route::group(['middleware'=>'auth'], function(){
         Route::put('{id}/update',   ['as'=>'especialidade.update',   'uses'=>'App\Http\Controllers\especialidadeController@update']);
         });
 
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        
 });
 
 
