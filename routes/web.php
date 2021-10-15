@@ -90,8 +90,19 @@ Route::group(['middleware'=>'auth'], function(){
         Route::put('{id}/update',   ['as'=>'especialidade.update',   'uses'=>'App\Http\Controllers\especialidadeController@update']);
         });
 
+    Route::get('envio-email', function(){
+        
+        $user = new stdClass();
+        $user->name = "Eduardo Ravanello";
+        $user->email = "158224@upf.br";
+        //return new App\Mail\newLaravelTips($user);
+       \Illuminate\Support\Facades\Mail::send(new App\Mail\newLaravelTips($user));
+    });
+
         
 });
+
+
 
 
 Auth::routes();
