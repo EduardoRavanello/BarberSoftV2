@@ -13,10 +13,10 @@ class agendamentoController extends Controller
     public function index(Request $filtro){
         $filtragem = $filtro->get('desc_filtro');
         if($filtragem == null)
-            $agendamentos = Agendamento::orderBy('data')->paginate(5);
+            $agendamentos = Agendamento::orderBy('dataInicio')->paginate(5);
         else
-            $agendamentos = Agendamento::where('data', '=', '%'.$filtragem.'%')
-                                        ->orderBy("data")
+            $agendamentos = Agendamento::where('dataInicio', '=', '%'.$filtragem.'%')
+                                        ->orderBy("dataInicio")
                                         ->paginate(5);
         return view('agendamentos.index', ['agendamentos'=>$agendamentos]);
     }
@@ -27,8 +27,8 @@ class agendamentoController extends Controller
 
     public function store(Request $request){
         $agendamento = Agendamento::create([
-            'data'=> $request->get('data'),
-            'hora'=> $request->get('hora'),
+            'dataInicio'=> $request->get('dataInicio'),
+            'dataFim'=> $request->get('dataFim'),
             'status'=> $request->get('status'),
             'id_cliente'=> $request->get('id_cliente'),
             'id_executor'=> $request->get('id_executor'),
@@ -51,7 +51,7 @@ class agendamentoController extends Controller
 
     public function update(AgendamentoRequest $request, $id){
         Agendamento::find($id)->update($request->all());
-        return redirect()->route('agendamento');
+        return redirect()->route('home');
     }
 
 }

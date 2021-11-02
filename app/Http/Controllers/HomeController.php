@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Agendamento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,11 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-       HomeController::graficoServicoMeses();
-
+       $var = HomeController::graficoServicoMeses();
+      //dd($var);
         return view('home',['contadorAgendamento'=>$this->contadorAgendamento(),
         'contadorCliente'=>$this->contadorCliente(),
-        'contadorServico'=>$this->contadorServico()]);
+        'contadorServico'=>$this->contadorServico(), 'dados'=>($var)]);
+      //   'contadorServico'=>$this->contadorServico(), 'dados'=>json_encode($var,JSON_NUMERIC_CHECK)]);
     }
 
 
@@ -48,9 +50,16 @@ class HomeController extends Controller
 
      private function graficoServicoMeses(){
      
-      $array = Agendamento::whereBetween('data', ["01/07/2021", "31/12/2021"])->groupBy('data');
-     // $var = Agendamento::whereBetween('data', ["01/07/2021", "31/12/2021"])->toArray();
-      dd($array);
+     // $array = Agendamento::whereBetween('dataInicio', ["01/01/2021", "31/12/2021"])->get()->toArray();
+   //    $array = Agendamento::select(Agendamento::raw('count("dataInicio") as quantidade'))
+   //   ->groupBy('Extract(Month From("dataInicio"))')->get()->toArray();
 
+      $array = DB::table('agendamentos')
+      ->selectRaw('count("dataInicio") as quantidade, Extract(Month From("dataInicio")) as mes')
+      ->groupByRaw('Extract(Month From("dataInicio"))')->orderByRaw('mes ASC')->get()->ToArray();
+      return $array;
+     // $var = Agendamento::whereBetween('data', ["01/07/2021", "31/12/2021"])->toArray();
+     // dd($array);
+      
      }
 }

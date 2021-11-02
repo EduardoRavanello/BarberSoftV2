@@ -15,8 +15,8 @@ class CreateAgendamentosTable extends Migration
     {
         Schema::create('agendamentos', function (Blueprint $table) {
             $table->bigIncrements('id_agendamento');
-            $table->date('data');
-            $table->time('hora');
+            $table->dateTime('dataInicio');
+            $table->dateTime('dataFim');
             $table->string('status', 50);
             $table->timestamps();
         });

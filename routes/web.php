@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,8 @@ Route::get('/', function () {
 Route::group(['middleware'=>'auth'], function(){
 
     //Route::get('/graficoServicoMeses', 'HomeController@graficoServicoMeses')->name('graficoServicoMeses');
-    Route::get('/graficoServicoMeses', [App\Http\Controllers\HomeController::class, 'graficoServicoMeses'])->name('graficoServicoMeses');
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/graficoServicoMeses', [HomeController::class, 'graficoServicoMeses'])->name('graficoServicoMeses');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::group(['prefix'=>'cliente', 'where'=>['id'=>'[0-9]+']], function(){
     Route::any('',              ['as'=>'cliente',          'uses'=>'App\Http\Controllers\clienteController@index']);
@@ -95,9 +96,16 @@ Route::group(['middleware'=>'auth'], function(){
         $user = new stdClass();
         $user->name = "Eduardo Ravanello";
         $user->email = "158224@upf.br";
+        $user->servico = "corte de cabelo";
+        $user->data = "01/11/2021";
+        $user->hora = "14:00";
         //return new App\Mail\newLaravelTips($user);
        \Illuminate\Support\Facades\Mail::send(new App\Mail\newLaravelTips($user));
     });
+
+    Route::get('teste', [App\Http\Controllers\FullCalenderController::class, 'index']);
+
+    Route::post('teste/action', [App\Http\Controllers\FullCalenderController::class, 'action']);
 
         
 });

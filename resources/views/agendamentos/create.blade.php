@@ -13,13 +13,13 @@
 
     {!! Form::open(['route'=>'agendamento.store']) !!}
         <div class="form-group">
-            {!! Form::label('data', 'Data:') !!}
-            {!! Form::date('data', null, ['class'=>'form-control','required']) !!}
+            {!! Form::label('dataInicio', 'Data Inicio:') !!}
+            {!! Form::dateTime('dataInicio', null, ['class'=>'form-control','required']) !!}
         </div>
 
         <div class="form-group">
-            {!! Form::label('hora', 'Hora:') !!}
-            {!! Form::time('hora', null, ['class'=>'form-control','required']) !!}
+            {!! Form::label('dataFim', 'Data Fim:') !!}
+            {!! Form::dateTime('dataFim', null, ['class'=>'form-control','required']) !!}
         </div>
 
         <div class="form-group">
@@ -54,27 +54,4 @@
 
         
     {!! Form::close() !!}
-@stop
-
-@section('js')
-    <script>
-        $(document).ready(function(){
-            var add_button = $(".add_field_button");
-            var wrapper = $(".input_fields_wrap");
-            var x=0;
-             
-            $(add_button).click(function(e){
-                x++;
-                var newField = '<div><div style="width:74%; float:left" id="id_produto">{!! Form::select("produtosAgendamento[]", \App\Models\Produto::orderBy("descricao")->pluck("descricao", "id_produto")->toArray(), null, ["class"=>"form-control", "required"=>"true", "placeholder"=>"Selecione Produto"]) !!}</div><button type="button" class="remove_field btn btn-danger btn-circle">Remover</button></div>';
-                $(wrapper).append(newField);
-            });
-
-            $(wrapper).on("click",".remove_field", function(e){
-                e.preventDefault();
-                $(this).parent('div').remove();
-                x--;
-            });
-        });
-    </script>
-
 @stop
