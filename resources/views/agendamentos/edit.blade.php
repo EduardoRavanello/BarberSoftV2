@@ -13,13 +13,13 @@
 
     {!! Form::open(['route'=>["agendamento.update", 'id'=>$agendamento->id_agendamento], 'method'=>'put']) !!}
         <div class="form-group">
-            {!! Form::label('dataInicio', 'Data Inicio:') !!}
-            {!! Form::dateTime('dataInicio', $agendamento->dataIncio, ['class'=>'form-control']) !!}
+            {!! Form::label('data', 'Data:') !!}
+            {!! Form::date('data', $agendamento->data, ['class'=>'form-control']) !!}
         </div>
 
         <div class="form-group">
-            {!! Form::label('dataFim', 'Data Fim:') !!}
-            {!! Form::dateTime('dataFim', $agendamento->dataFim, ['class'=>'form-control']) !!}
+            {!! Form::label('hora', 'Hora:') !!}
+            {!! Form::time('hora', $agendamento->hora, ['class'=>'form-control']) !!}
         </div>
 
         <div class="form-group">

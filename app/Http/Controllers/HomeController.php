@@ -55,8 +55,8 @@ class HomeController extends Controller
    //   ->groupBy('Extract(Month From("dataInicio"))')->get()->toArray();
 
       $array = DB::table('agendamentos')
-      ->selectRaw('count("dataInicio") as quantidade, Extract(Month From("dataInicio")) as mes')
-      ->groupByRaw('Extract(Month From("dataInicio"))')->orderByRaw('mes ASC')->get()->ToArray();
+      ->selectRaw('count("data") as quantidade, Extract(Month From("data")) as mes')
+      ->groupByRaw('Extract(Month From("data"))')->orderByRaw('mes ASC')->get()->ToArray();
       return $array;
      // $var = Agendamento::whereBetween('data', ["01/07/2021", "31/12/2021"])->toArray();
      // dd($array);

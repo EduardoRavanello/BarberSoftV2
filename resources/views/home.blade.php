@@ -71,8 +71,9 @@
       </div>
         </div>
     </div>
-
-    <canvas id="chartEntrada" width="400" height="400"></canvas>
+    <div width="200" height="200">
+    <canvas id="chartEntrada" width="200" height="200"></canvas>
+    </div>
     <!-- 
     <div class="card">
               <div class="card-header">

@@ -13,13 +13,13 @@
 
     {!! Form::open(['route'=>'agendamento.store']) !!}
         <div class="form-group">
-            {!! Form::label('dataInicio', 'Data Inicio:') !!}
-            {!! Form::dateTime('dataInicio', null, ['class'=>'form-control','required']) !!}
+            {!! Form::label('data', 'Data:') !!}
+            {!! Form::date('data', null, ['class'=>'form-control','required']) !!}
         </div>
 
         <div class="form-group">
-            {!! Form::label('dataFim', 'Data Fim:') !!}
-            {!! Form::dateTime('dataFim', null, ['class'=>'form-control','required']) !!}
+            {!! Form::label('hora', 'Hora:') !!}
+            {!! Form::time('hora', null, ['class'=>'form-control','required']) !!}
         </div>
 
         <div class="form-group">

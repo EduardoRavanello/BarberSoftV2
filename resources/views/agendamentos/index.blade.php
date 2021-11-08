@@ -21,8 +21,8 @@
                 <thead>
                         <th>Cliente</th>
                         <th>Serviço</th>
-                        <th>Data Inicio</th>
-                        <th>Data Fim</th>
+                        <th>Data</th>
+                        <th>Hora</th>
                         <th>Executor</th>
                         <th>Status</th>
                         <th>Ações</th>
@@ -32,8 +32,8 @@
                         <tr>
                                 <td>{{ $agendamento->cliente->nome }}</td>
                                 <td>{{ $agendamento->servico->descricao }}</td>
-                                <td>{{ Carbon\Carbon::parse($agendamento->dataInicio)->format('d/m/y') }}</td>
-                                <td>{{ Carbon\Carbon::parse($agendamento->dataFim)->format('d/m/y') }}</td>
+                                <td>{{ Carbon\Carbon::parse($agendamento->data)->format('d/m/y') }}</td>
+                                <td>{{ Carbon\Carbon::parse($agendamento->hora)->format('H:m') }}</td>
                                 <td>{{ $agendamento->executor->tipoExecutor }}</td>
                                 <td>{{ $agendamento->status }}</td>
                                 <td>
