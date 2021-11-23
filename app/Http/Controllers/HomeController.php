@@ -25,10 +25,17 @@ class HomeController extends Controller
     public function index()
     {
        $var = HomeController::graficoServicoMeses();
+       $varGraphServico = HomeController::graficoServico();
+       $varGraphStatus = HomeController::graficoStatus();
+       $varTma = HomeController::graficoTMA();
+       $varPrecoMedio = HomeController::graficoPrecoMedio();
+       $varFatCons = HomeController::graficoFaturamentoConsolidado();
       //dd($var);
         return view('home',['contadorAgendamento'=>$this->contadorAgendamento(),
         'contadorCliente'=>$this->contadorCliente(),
-        'contadorServico'=>$this->contadorServico(), 'dados'=>($var)]);
+        'contadorServico'=>$this->contadorServico(), 'dados'=>($var),'dadosServico'=>($varGraphServico), 
+        'dadosStatus'=>($varGraphStatus),'dadosTma'=>($varTma),'dadosPrecoMedio'=>($varPrecoMedio)
+        ,'dadosFatCons'=>($varFatCons) ]);
       //   'contadorServico'=>$this->contadorServico(), 'dados'=>json_encode($var,JSON_NUMERIC_CHECK)]);
     }
 
@@ -49,17 +56,67 @@ class HomeController extends Controller
      }
 
      private function graficoServicoMeses(){
-     
-     // $array = Agendamento::whereBetween('dataInicio', ["01/01/2021", "31/12/2021"])->get()->toArray();
-   //    $array = Agendamento::select(Agendamento::raw('count("dataInicio") as quantidade'))
-   //   ->groupBy('Extract(Month From("dataInicio"))')->get()->toArray();
 
       $array = DB::table('agendamentos')
       ->selectRaw('count("data") as quantidade, Extract(Month From("data")) as mes')
       ->groupByRaw('Extract(Month From("data"))')->orderByRaw('mes ASC')->get()->ToArray();
       return $array;
-     // $var = Agendamento::whereBetween('data', ["01/07/2021", "31/12/2021"])->toArray();
-     // dd($array);
+
       
      }
+
+     private function graficoServico(){
+     
+       $array = DB::table('agendamentos')
+       ->join('servicos', 'agendamentos.id_servico', '=', 'servicos.id_servico')
+       ->selectRaw('COUNT (agendamentos.id_servico) as quantidade, servicos.descricao as serviço')->whereRaw("agendamentos.status = 'Finalizado'")
+       ->groupByRaw('serviço')->get()->ToArray();
+       return $array;
+       
+      }
+
+
+      private function graficoStatus(){
+
+         $array = DB::table('agendamentos')
+         ->selectRaw('count (id_agendamento) as quantidade, status')
+         ->groupByRaw('status')->get()->ToArray();
+         return $array;
+   
+         
+        }
+
+        private function graficoTMA(){
+     
+         $array = DB::table('agendamentos')
+         ->join('servicos', 'agendamentos.id_servico', '=', 'servicos.id_servico')
+         ->selectRaw('AVG(servicos."tempoAtendimento") as tma')->whereRaw("agendamentos.status = 'Finalizado'")
+         ->get()->ToArray();
+         return $array;
+         
+        }
+
+        private function graficoPrecoMedio(){
+     
+         $array = DB::table('agendamentos')
+         ->join('servicos', 'agendamentos.id_servico', '=', 'servicos.id_servico')
+         ->selectRaw('AVG(servicos."preco") as preco')->whereRaw("agendamentos.status = 'Finalizado'")
+         ->get()->ToArray();
+         return $array;
+         
+        }
+
+         
+        private function graficoFaturamentoConsolidado(){
+     
+         $array = DB::table('agendamentos')
+         ->join('servicos', 'agendamentos.id_servico', '=', 'servicos.id_servico')
+         ->selectRaw('SUM(servicos."preco") as faturamento, Extract(Month From(agendamentos."data")) as mes')
+         ->whereRaw("agendamentos.status = 'Finalizado'")->groupByRaw('Extract(Month From(agendamentos."data"))')
+         ->get()->ToArray();
+         return $array;
+         
+        }
+
+
 }

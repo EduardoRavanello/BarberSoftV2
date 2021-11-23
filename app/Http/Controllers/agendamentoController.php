@@ -13,10 +13,10 @@ class agendamentoController extends Controller
     public function index(Request $filtro){
         $filtragem = $filtro->get('desc_filtro');
         if($filtragem == null)
-            $agendamentos = Agendamento::orderBy('data')->paginate(10);
+            $agendamentos = Agendamento::whereRaw("data >= current_date")->orderBy('data')->paginate(10);
         else
-            $agendamentos = Agendamento::where('data', '=', '%'.$filtragem.'%')
-                                        ->orderBy("data")
+            $agendamentos = Agendamento::where('status', 'like', '%'.$filtragem.'%')
+                                        ->orderBy("status")
                                         ->paginate(10);
         return view('agendamentos.index', ['agendamentos'=>$agendamentos]);
     }

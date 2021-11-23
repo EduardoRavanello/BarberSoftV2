@@ -18,7 +18,7 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('tempoAtendimento', 'Tempo de Atendimento:') !!}
+            {!! Form::label('tempoAtendimento', 'Tempo de Atendimento (em minutos):') !!}
             {!! Form::number('tempoAtendimento', null, ['class'=>'form-control','required','step' => '0.01']) !!}
         </div>
 

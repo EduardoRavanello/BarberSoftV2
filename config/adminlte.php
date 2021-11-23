@@ -264,6 +264,7 @@ return [
                 'icon' => 'fas fa-fw fa-users',
 
             ],
+            /*
             [
             
                 'text' => 'Usuários',
@@ -272,7 +273,7 @@ return [
 
             ],
         
-        /*
+        
         [
             'text' => 'search',
             'search' => true,

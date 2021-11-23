@@ -39,7 +39,7 @@
 
         <div class="form-group">
             {!! Form::label('status', 'Status:') !!}
-            {!! Form::select('status', array('Criado'=>'Criado','Agendado'=>'Agendado','Finalizado'=>'Flinalizado','Cancelado'=>'Cancelado'), 'Criado', ['class'=>'form-control','required']) !!}
+            {!! Form::select('status', array('Criado'=>'Criado'), 'Criado', ['class'=>'form-control','required']) !!}
         </div>
 
         <div class='input_fields_wrap'>

@@ -15,16 +15,18 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <div class="container">
-    <div class="row justify-content-center">
+    
+    <!--
+      <div class="row justify-content-center">
         <div class="col-md-8">
             
             <div class="row">
         <div class="col-lg-3 col-xs-6">
           
         </div>
-        <!-- ./col -->
+        <!-- ./col 
         <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
+          <!-- small box 
           <div class="small-box bg-green">
             <div class="inner">
               <h3>{{ $contadorServico }}</h3>
@@ -37,9 +39,9 @@
             <a href="{{ route('servico')}}" class="small-box-footer">Mais Informações <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
+        <!-- ./col 
         <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
+          <!-- small box 
           <div class="small-box bg-yellow">
             <div class="inner">
               <h3>{{ $contadorCliente }}</h3>
@@ -52,9 +54,9 @@
             <a href="{{ route('cliente')}}" class="small-box-footer">Mais Informações <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
+        <!-- ./col 
         <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
+          <!-- small box 
           <div class="small-box bg-red">
             <div class="inner">
               <h3>{{ $contadorAgendamento }}</h3>
@@ -67,90 +69,51 @@
             <a href="{{ route('agendamento')}}" class="small-box-footer">Mais Informações <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
+        <!-- ./col 
       </div>
         </div>
     </div>
-    <div width="200" height="200">
-    <canvas id="chartEntrada" width="200" height="200"></canvas>
-    </div>
-    <!-- 
-    <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Sales
-                </h3>
-                <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                    </li>
-                    <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                  </ul>
-                </div>
-              </div> --><!-- /.card-header -->
-              <!--
-              <div class="card-body">
-                <div class="tab-content p-0"> -->
-                  <!-- Morris chart - Sales -->
-                  <!--<div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                   </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                  </div>
-                </div>
-              </div>
---><!-- /.card-body -->
-            <!--</div>
-            <div class="row" >
-            <div class="col-xl col-md-3 mb-4">
-                <div class="card-dash shadow h-100 py-2">
-                    <div class="card-body">
-                        <h4 class="mt-0 header-title mb-3">Gráfico de Entradas</h4>
-                        <hr>
-                        <div class="inbox-wid">
-                            <div class="inbox-item">
-                                <canvas id="chartEntrada" width="200" height="30"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
+-->
 
+    <div style="height: 300px">
+        <canvas id="chartEntrada" width="200" height="200"></canvas>
+      </div>
+
+    <div class="row justify-content-center">
+          <div style="height: 300px">     
+              <canvas id="chartServicos" width="400" height="400"></canvas>
+          </div>
+            
+
+          <div style="height: 300px"> 
+            <canvas id="chartStatus" width="400" height="400"></canvas>
+          </div>
+
+          <div style="height: 300px">
+            <canvas id="chartTma" width="300" height="300"></canvas>
+          </div>
+
+      </div>
+      <div class="row justify-content-center">
+            <div style="height: 300px"> 
+              <canvas id="chartPrecoMedio" width="300" height="300"></canvas>
+            </div>
+
+            <div style="height: 300px"> 
+              <canvas id="chartFatCons" width="300" height="300"></canvas>
+            </div>
+      </div>
 </div>
 
-<div id="calendar"></div>
 
 
  <script src="{{ asset('assets/chart.js') }}"></script>
 <script>
-        // $.ajax({
-        //     type: "GET",
-        //     url: "{{ URL('/graficoServicoMeses') }}",
-        //     dataType: "json",
-        //     headers: {
-        //         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')
-        //     },
-        //     success: function(data) {
-        //       console.log(data); 
-                //  var data = "< ?= htmlspecialchars($dados) ?>";
                 $(document).ready(function(){
 
                 
                 var dados = {!! json_encode($dados) !!};
+                
                
              
 <?php
@@ -206,26 +169,66 @@
                  var ctx = document.getElementById('chartEntrada').getContext('2d');
 
                  var myChart = new Chart(ctx, {
-                     type: 'bar',
+                     type: 'line',
                      data: {
                         
                          labels: {!! json_encode($testedadosmes) !!},
                          datasets: [{
                              label: 'Quantidade de agendamentos nos ultimos meses',
                              data: {!! json_encode($testedadosqtd) !!},
+                             
+                             borderColor: [
+                                 'rgb(75, 192, 192)'
+                             ],
+                             borderWidth: 1
+                         }]
+                     },
+                     options: {
+                      responsive: true, maintainAspectRatio: false
+                     }
+                 });
+                });
+
+        // grafico de serviços
+
+                var dadosServico = {!! json_encode($dadosServico) !!};
+                console.log(dadosServico);
+        
+        <?php
+                  $testedadosservico = [];
+                  $testedadoservicoqtd = [];
+                 $cont = 0;
+                 foreach ($dadosServico as $item){
+                    $testedadoservicoqtd[$cont] = $item->quantidade;
+                    $testedadosservico[$cont] = $item->serviço;
+                    $cont++;
+                  }
+
+?>
+        //console.log(dadosServicos);
+                 var ctx = document.getElementById('chartServicos').getContext('2d');
+
+                 var myChart = new Chart(ctx, {
+                     type: 'bar',
+                     data: {
+                        
+                         labels: {!! json_encode($testedadosservico) !!},
+                         datasets: [{
+                             label: 'Quantidade de serviços executados (Finalizados)',
+                             data: {!! json_encode($testedadoservicoqtd) !!},
                              backgroundColor: [
-                                 'rgba(255, 99, 132, 0.2)',
-                                 'rgba(54, 162, 235, 0.2)',
-                                 'rgba(255, 206, 86, 0.2)',
+                              'rgba(255, 0, 132, 0.2)',
+                                 'rgba(19, 255, 0, 0.2)',
+                                 'rgba(39, 46, 245, 0.2)',
                                  'rgba(75, 192, 192, 0.2)',
                                  'rgba(153, 102, 255, 0.2)',
                                  'rgba(255, 159, 64, 0.2)',
                                  'rgb(74,225,243,0.2)'
                              ],
                              borderColor: [
-                                 'rgba(255, 99, 132, 1)',
-                                 'rgba(54, 162, 235, 1)',
-                                 'rgba(255, 206, 86, 1)',
+                              'rgba(255, 99, 132, 1)',
+                                 'rgba(80, 245, 39, 1)',
+                                 'rgba(39, 46, 245, 1)',
                                  'rgba(75, 192, 192, 1)',
                                  'rgba(153, 102, 255, 1)',
                                  'rgba(255, 159, 64, 1)',
@@ -235,19 +238,236 @@
                          }]
                      },
                      options: {
-                         scales: {
-                             y: {
-                                 beginAtZero: true
-                             }
+                      responsive: true, maintainAspectRatio: false
                          }
+                     
+                 });
+
+
+                 // grafico de Status
+
+                var dadosStatus = {!! json_encode($dadosStatus) !!};
+                
+        
+        <?php
+                  $testedadosStatus = [];
+                  $testedadostatusqtd = [];
+                 $cont = 0;
+                 foreach ($dadosStatus as $item){
+                    $testedadostatusqtd[$cont] = $item->quantidade;
+                    $testedadosStatus[$cont] = $item->status;
+                    $cont++;
+                  }
+
+          ?>
+                console.log(dadosStatus);      
+                 var ctx = document.getElementById('chartStatus').getContext('2d');
+
+                 var myChart = new Chart(ctx, {
+                     type: 'bar',
+                     data: {
+                        
+                         labels: {!! json_encode($testedadosStatus) !!},
+                         datasets: [{
+                             label: 'Agendamentos X Status',
+                             data: {!! json_encode($testedadostatusqtd) !!},
+                             backgroundColor: [
+                              'rgba(255, 0, 132, 0.2)',
+                                 'rgba(19, 255, 0, 0.2)',
+                                 'rgba(39, 46, 245, 0.2)',
+                                 'rgba(75, 192, 192, 0.2)',
+                                 'rgba(153, 102, 255, 0.2)',
+                                 'rgba(255, 159, 64, 0.2)',
+                                 'rgb(74,225,243,0.2)'
+                             ],
+                             borderColor: [
+                              'rgba(255, 99, 132, 1)',
+                                 'rgba(80, 245, 39, 1)',
+                                 'rgba(39, 46, 245, 1)',
+                                 'rgba(75, 192, 192, 1)',
+                                 'rgba(153, 102, 255, 1)',
+                                 'rgba(255, 159, 64, 1)',
+                                 'rgb(74,225,243, 1)'
+                             ],
+                             borderWidth: 1
+                         }]
+                     },
+                     options: {
+                      responsive: true, maintainAspectRatio: false
                      }
                  });
+
+
+                 // grafico de TMA
+
+                var dadosTma = {!! json_encode($dadosTma) !!};
+
+                <?php
+                  $testedadosTma = [];
+                 $cont = 0;
+                 foreach ($dadosTma as $item){
+                    $testedadosTma[$cont] = $item->tma;
+                    $cont++;
+                  }
+
+                ?>
+                
+                        console.log(dadosTma);      
+                         var ctx = document.getElementById('chartTma').getContext('2d');
+        
+                         var myChart = new Chart(ctx, {
+                             type: 'bar',
+                             data: {
+                                
+                                 labels: ['TMA'],
+                                 datasets: [{
+                                     label: 'Tempo Médio de Atendimento (agendamentos finalizados)',
+                                     data: {!! json_encode($testedadosTma) !!},
+                                     backgroundColor: [
+                                         'rgba(255, 159, 64, 0.2)'
+                                     ],
+                                     borderColor: [
+                                         'rgba(255, 159, 64, 1)'
+                                     ],
+                                     borderWidth: 1
+                                 }]
+                             },
+                             options: {
+                              responsive: true, maintainAspectRatio: false
+                             }
+                         });
+
+
+                         // grafico de Preço Médio
+
+                var dadosPrecoMedio = {!! json_encode($dadosPrecoMedio) !!};
+
+                  <?php
+                    $testedadosPrecoMedio = [];
+                  $cont = 0;
+                  foreach ($dadosPrecoMedio as $item){
+                      $testedadosPrecoMedio[$cont] = $item->preco;
+                      $cont++;
+                    }
+
+                  ?>
+
+                console.log(dadosTma);      
+                var ctx = document.getElementById('chartPrecoMedio').getContext('2d');
+
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        
+                        labels: ['Preço Médio dos Serviços Finalizados'],
+                        datasets: [{
+                            label: 'Preço Médio (agendamentos finalizados)',
+                            data: {!! json_encode($testedadosPrecoMedio) !!},
+                            backgroundColor: [
+                                'rgba(153, 102, 255, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(153, 102, 255, 1)',
+
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                      responsive: true, maintainAspectRatio: false
+                    }
                 });
-        //     },
-        //     error: function(response) {
-        //         console.log(response);
-        //     }
-        // });
+
+
+
+                 // grafico de Faturamento Consolidado
+
+                 var dadosFatCons = {!! json_encode($dadosFatCons) !!};
+
+                <?php
+                  $testedadosFatCons = [];
+                  $testedadosFatConsMes = [];
+                $cont = 0;
+                foreach ($dadosFatCons as $item){
+                  if($item->mes == 1){
+                     $testedadosFatConsMes[$cont] = "Janeiro";
+                  } 
+                  elseif($item->mes == 2){
+                   $testedadosFatConsMes[$cont] = "Fevereiro";
+                  }
+                  elseif($item->mes == 3){
+                    $testedadosFatConsMes[$cont] = "Março";
+                   }
+                   elseif($item->mes == 4){
+                    $testedadosFatConsMes[$cont] = "Abril";
+                   }
+                   elseif($item->mes == 5){
+                    $testedadosFatConsMes[$cont] = "Maio";
+                   }
+                   elseif($item->mes == 6){
+                    $testedadosFatConsMes[$cont] = "Junho";
+                   }
+                   elseif($item->mes == 7){
+                    $testedadosFatConsMes[$cont] = "Julho";
+                   }
+                   elseif($item->mes == 8){
+                    $testedadosFatConsMes[$cont] = "Agosto";
+                   }
+                   elseif($item->mes == 9){
+                    $testedadosFatConsMes[$cont] = "Setembro";
+                   }
+                   elseif($item->mes == 10){
+                    $testedadosFatConsMes[$cont] = "Outubro";
+                   }
+                   elseif($item->mes == 11){
+                    $testedadosFatConsMes[$cont] = "Novembro";
+                   }
+                   elseif($item->mes == 12){
+                    $testedadosFatConsMes[$cont] = "Dezembro";
+                   }
+                    $testedadosFatCons[$cont] = $item->faturamento;
+                    $cont++;
+                  }
+
+                ?>
+
+                console.log(dadosFatCons);      
+                var ctx = document.getElementById('chartFatCons').getContext('2d');
+
+                var myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      
+                      labels: {!! json_encode($testedadosFatConsMes) !!},
+                      datasets: [{
+                          label: 'Faturamento Consolidado',
+                          data: {!! json_encode($testedadosFatCons) !!},
+                          backgroundColor: [
+                              'rgba(255, 99, 132, 0.2)',
+                              'rgba(54, 162, 235, 0.2)',
+                              'rgba(255, 206, 86, 0.2)',
+                              'rgba(75, 192, 192, 0.2)',
+                              'rgba(153, 102, 255, 0.2)',
+                              'rgba(255, 159, 64, 0.2)',
+                              'rgb(74,225,243,0.2)'
+                          ],
+                          borderColor: [
+                              'rgba(255, 99, 132, 1)',
+                              'rgba(54, 162, 235, 1)',
+                              'rgba(255, 206, 86, 1)',
+                              'rgba(75, 192, 192, 1)',
+                              'rgba(153, 102, 255, 1)',
+                              'rgba(255, 159, 64, 1)',
+                              'rgb(74,225,243, 1)'
+                          ],
+                          borderWidth: 1
+                      }]
+                  },
+                  options: {
+                    responsive: true, maintainAspectRatio: false
+                  }
+                });
+
 </script>
 @endsection
 
