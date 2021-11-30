@@ -13,7 +13,7 @@ class servicoController extends Controller
     public function index(Request $filtro){
         $filtragem = $filtro->get('desc_filtro');
         if($filtragem == null)
-            $servicos = Servico::orderBy('descricao')->paginate(10);
+            $servicos = Servico::orderBy('descricao')->paginate(5);
         else
             $servicos = Servico::where('descricao', 'like', '%'.$filtragem.'%')
                                         ->orderBy("descricao")
