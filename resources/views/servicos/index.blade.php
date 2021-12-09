@@ -26,8 +26,8 @@
                         @foreach($servicos as $servico)
                         <tr>
                                 <td>{{ $servico->descricao }}</td>
-                                <td>{{ $servico->tempoAtendimento }}</td>
-                                <td>{{ $servico->preco }}</td>
+                                <td>{{ $servico->tempoAtendimento }} minutos</td>
+                                <td>R$ {{ $servico->preco }} </td>
                                 <td>
                                         <a href="{{ route('servico.edit', ['id'=>\Crypt::encrypt($servico->id_servico)]) }}" class="btn-sm btn-success">Editar</a>
                                         <a href="{{ route('servico.destroy', ['id'=>$servico->id_servico]) }}" class="btn-sm btn-danger">Remover</a>
