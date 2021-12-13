@@ -81,6 +81,7 @@ class agendamentoController extends Controller
         $user->servico = $servico->descricao;
         $user->data = $agendamento->data;
         $user->hora = $agendamento->hora;
+        $user->status = $agendamento->status;
         //return new App\Mail\newLaravelTips($user);
        \Illuminate\Support\Facades\Mail::send(new newLaravelTips($user));
         return redirect()->route('agendamento');

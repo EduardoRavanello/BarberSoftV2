@@ -29,7 +29,7 @@
 
         <div class="form-group">
             {!! Form::label('email', 'E-mail:') !!}
-            {!! Form::text('email', null, ['class'=>'form-control','required']) !!}
+            {!! Form::text('email', $cliente->email, ['class'=>'form-control','required']) !!}
         </div>
 
         <div class="form-group">

@@ -128,7 +128,7 @@ class HomeController extends Controller
          $array = DB::table('agendamentos')
       ->selectRaw('count("data") as quantidade, Extract(Month From("data")) as mes')
       ->groupByRaw('Extract(Month From("data"))')
-      ->whereRaw("agendamentos.status = 'Finalizado'")
+      ->whereRaw("agendamentos.status = 'Cancelado'")
       ->orderByRaw('mes ASC')->get()->ToArray();
       return $array;
    
