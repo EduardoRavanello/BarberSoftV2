@@ -102,6 +102,10 @@
             <div style="height: 300px"> 
               <canvas id="chartFatCons" width="300" height="300"></canvas>
             </div>
+
+            <div style="height: 300px"> 
+              <canvas id="chartCancel" width="300" height="300"></canvas>
+            </div>
       </div>
 </div>
 
@@ -209,7 +213,7 @@
                  var ctx = document.getElementById('chartServicos').getContext('2d');
 
                  var myChart = new Chart(ctx, {
-                     type: 'bar',
+                     type: 'doughnut',
                      data: {
                         
                          labels: {!! json_encode($testedadosservico) !!},
@@ -264,7 +268,7 @@
                  var ctx = document.getElementById('chartStatus').getContext('2d');
 
                  var myChart = new Chart(ctx, {
-                     type: 'bar',
+                     type: 'doughnut',
                      data: {
                         
                          labels: {!! json_encode($testedadosStatus) !!},
@@ -316,7 +320,7 @@
                          var ctx = document.getElementById('chartTma').getContext('2d');
         
                          var myChart = new Chart(ctx, {
-                             type: 'bar',
+                             type: 'doughnut',
                              data: {
                                 
                                  labels: ['TMA'],
@@ -442,6 +446,96 @@
                       datasets: [{
                           label: 'Faturamento Consolidado',
                           data: {!! json_encode($testedadosFatCons) !!},
+                          backgroundColor: [
+                              'rgba(255, 99, 132, 0.2)',
+                              'rgba(54, 162, 235, 0.2)',
+                              'rgba(255, 206, 86, 0.2)',
+                              'rgba(75, 192, 192, 0.2)',
+                              'rgba(153, 102, 255, 0.2)',
+                              'rgba(255, 159, 64, 0.2)',
+                              'rgb(74,225,243,0.2)'
+                          ],
+                          borderColor: [
+                              'rgba(255, 99, 132, 1)',
+                              'rgba(54, 162, 235, 1)',
+                              'rgba(255, 206, 86, 1)',
+                              'rgba(75, 192, 192, 1)',
+                              'rgba(153, 102, 255, 1)',
+                              'rgba(255, 159, 64, 1)',
+                              'rgb(74,225,243, 1)'
+                          ],
+                          borderWidth: 1
+                      }]
+                  },
+                  options: {
+                    responsive: true, maintainAspectRatio: false
+                  }
+                });
+
+
+
+                // grafico de Cancelados
+
+                var dadosCancel = {!! json_encode($dadosCancel) !!};
+
+                <?php
+                  $testedadosCancelQtd = [];
+                  $testedadosCancelMes = [];
+                $cont = 0;
+                foreach ($dadosCancel as $item){
+                  if($item->mes == 1){
+                    $testedadosCancelMes[$cont] = "Janeiro";
+                  } 
+                  elseif($item->mes == 2){
+                  $testedadosCancelMes[$cont] = "Fevereiro";
+                  }
+                  elseif($item->mes == 3){
+                    $testedadosCancelMes[$cont] = "Março";
+                  }
+                  elseif($item->mes == 4){
+                    $testedadosCancelMes[$cont] = "Abril";
+                  }
+                  elseif($item->mes == 5){
+                    $testedadosCancelMes[$cont] = "Maio";
+                  }
+                  elseif($item->mes == 6){
+                    $testedadosCancelMes[$cont] = "Junho";
+                  }
+                  elseif($item->mes == 7){
+                    $testedadosCancelMes[$cont] = "Julho";
+                  }
+                  elseif($item->mes == 8){
+                    $testedadosCancelMes[$cont] = "Agosto";
+                  }
+                  elseif($item->mes == 9){
+                    $testedadosCancelMes[$cont] = "Setembro";
+                  }
+                  elseif($item->mes == 10){
+                    $testedadosCancelMes[$cont] = "Outubro";
+                  }
+                  elseif($item->mes == 11){
+                    $testedadosCancelMes[$cont] = "Novembro";
+                  }
+                  elseif($item->mes == 12){
+                    $testedadosCancelMes[$cont] = "Dezembro";
+                  }
+                    $testedadosCancelQtd[$cont] = $item->quantidade;
+                    $cont++;
+                  }
+
+                ?>
+
+                console.log(dadosCancel);      
+                var ctx = document.getElementById('chartCancel').getContext('2d');
+
+                var myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      
+                      labels: {!! json_encode($testedadosCancelMes) !!},
+                      datasets: [{
+                          label: 'Agendamentos cancelados X Mês',
+                          data: {!! json_encode($testedadosCancelQtd) !!},
                           backgroundColor: [
                               'rgba(255, 99, 132, 0.2)',
                               'rgba(54, 162, 235, 0.2)',

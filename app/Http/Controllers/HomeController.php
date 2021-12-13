@@ -30,12 +30,13 @@ class HomeController extends Controller
        $varTma = HomeController::graficoTMA();
        $varPrecoMedio = HomeController::graficoPrecoMedio();
        $varFatCons = HomeController::graficoFaturamentoConsolidado();
+       $varCancelados = HomeController::graficoCancelados();
       //dd($var);
         return view('home',['contadorAgendamento'=>$this->contadorAgendamento(),
         'contadorCliente'=>$this->contadorCliente(),
         'contadorServico'=>$this->contadorServico(), 'dados'=>($var),'dadosServico'=>($varGraphServico), 
         'dadosStatus'=>($varGraphStatus),'dadosTma'=>($varTma),'dadosPrecoMedio'=>($varPrecoMedio)
-        ,'dadosFatCons'=>($varFatCons) ]);
+        ,'dadosFatCons'=>($varFatCons) ,'dadosCancel'=>($varCancelados) ]);
       //   'contadorServico'=>$this->contadorServico(), 'dados'=>json_encode($var,JSON_NUMERIC_CHECK)]);
     }
 
@@ -59,7 +60,9 @@ class HomeController extends Controller
 
       $array = DB::table('agendamentos')
       ->selectRaw('count("data") as quantidade, Extract(Month From("data")) as mes')
-      ->groupByRaw('Extract(Month From("data"))')->orderByRaw('mes ASC')->get()->ToArray();
+      ->groupByRaw('Extract(Month From("data"))')
+      ->whereRaw("agendamentos.status = 'Finalizado'")
+      ->orderByRaw('mes ASC')->get()->ToArray();
       return $array;
 
       
@@ -112,9 +115,23 @@ class HomeController extends Controller
          $array = DB::table('agendamentos')
          ->join('servicos', 'agendamentos.id_servico', '=', 'servicos.id_servico')
          ->selectRaw('SUM(servicos."preco") as faturamento, Extract(Month From(agendamentos."data")) as mes')
-         ->whereRaw("agendamentos.status = 'Finalizado'")->groupByRaw('Extract(Month From(agendamentos."data"))')
-         ->get()->ToArray();
+         ->whereRaw("agendamentos.status = 'Finalizado'")
+         ->groupByRaw('Extract(Month From(agendamentos."data"))')
+         ->get()
+         ->ToArray();
          return $array;
+         
+        }
+
+        private function graficoCancelados(){
+
+         $array = DB::table('agendamentos')
+      ->selectRaw('count("data") as quantidade, Extract(Month From("data")) as mes')
+      ->groupByRaw('Extract(Month From("data"))')
+      ->whereRaw("agendamentos.status = 'Finalizado'")
+      ->orderByRaw('mes ASC')->get()->ToArray();
+      return $array;
+   
          
         }
 

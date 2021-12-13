@@ -1,15 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<header style="height: auto; overflow: hidden;">
-    <video style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; width: auto;
-    height: auto; background-size: cover;" autoplay muted
-    loop>
-        <source src="https://www.youtube.com/watch?v=3yACsnV30N8"/>
-    </video>
-    <img src="C:\BarberSoft\BarberSoft\video\teste.jpeg"/>
-</header>
 
+<!--<img style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; width: auto;
+    height: auto; background-size: cover;" src="https://blog.barbaderespeito.com.br/wp-content/uploads/2021/08/qual-a-diferenca-entre-barbershop-e-barbearia.jpg"/>
+
+-->
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
